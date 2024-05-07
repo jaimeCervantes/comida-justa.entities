@@ -1,0 +1,14 @@
+{
+  "name": "comida-justa.entities",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test --watch",
+    "test:coverage": "node --test --experimental-test-coverage"
+  },
+  "keywords": [],
+  "author": "Jaime Cervantes Velasco <jaime.cervantes@gmail.com>",
+  "license": "ISC"
+}
