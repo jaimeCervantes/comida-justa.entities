@@ -1,5 +1,4 @@
 import { test, describe } from "vitest";
-
 import assert from "node:assert/strict";
 import { validate } from "./validate.ts";
 import {
@@ -19,6 +18,7 @@ describe("When Validating food", () => {
   test("Then missing title should throw an StringOnFoodEntityError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({ title: "" });
       },
       {
@@ -31,6 +31,7 @@ describe("When Validating food", () => {
   test("Then invalid title should throw an StringOnFoodEntityError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({ title: {} });
       },
       {
@@ -43,6 +44,7 @@ describe("When Validating food", () => {
   test("Then invalid title should throw an StringOnFoodEntityError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({ title: "many" });
       },
       {
@@ -55,6 +57,7 @@ describe("When Validating food", () => {
   test("Then missing summary should throw an StringOnFoodEntityError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({ title: "Crema de cacahuate title" });
       },
       {
@@ -67,6 +70,7 @@ describe("When Validating food", () => {
   test("Then missing content should throw an StringOnFoodEntityError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({
           title: "Crema de cacahuate title",
           summary: "Crema de cacahuate summary",
@@ -82,6 +86,7 @@ describe("When Validating food", () => {
   test("Then invalid price should throw an Error", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({
           title: "Crema de cacahuate title",
           summary: "Crema de cacahuate summary",
@@ -98,6 +103,7 @@ describe("When Validating food", () => {
   test("Then invalid images should throw an ImageError", () => {
     assert.throws(
       () => {
+        // @ts-ignore
         validate({
           title: "Crema de cacahuate title",
           summary: "Crema de cacahuate summary",
@@ -120,6 +126,7 @@ describe("When Validating food", () => {
           summary: "Crema de cacahuate summary",
           content: "Crema de cacahuate contenido",
           price: 50,
+          // @ts-ignore
           images: [1, 2, 3, 4],
         });
       },

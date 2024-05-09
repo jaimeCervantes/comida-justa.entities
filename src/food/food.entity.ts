@@ -1,12 +1,21 @@
-import type { Food, CreateFoodEntityDeps, FoodEntity } from "./types/index.ts";
-export function createFoodEntity({
-  validate,
-  generateSlug,
-}: CreateFoodEntityDeps) {
-  return function makeFood(ingredients: Food): FoodEntity {
-    validate(ingredients);
+import type { Food, FoodEntityCreatorDeps, FoodEntity } from "./types/index.ts";
 
+export class FoodEntityCreator {
+  validate: (ingredients: Food) => void | never;
+  generateSlug: (title: string) => string;
+
+  constructor({ validate, generateSlug }: FoodEntityCreatorDeps) {
+    this.validate = validate;
+    this.generateSlug = generateSlug;
+  }
+
+  makeFood(ingredients: Food): FoodEntity {
+    const validate = this.validate;
+    const generateSlug = this.generateSlug;
     let food: Food = ingredients;
+
+    this.validate(ingredients);
+
     if (!ingredients.slug) {
       const slug: string = generateSlug(ingredients.title);
       food = { ...ingredients, slug };
@@ -27,5 +36,5 @@ export function createFoodEntity({
         return { ...food };
       },
     });
-  };
+  }
 }

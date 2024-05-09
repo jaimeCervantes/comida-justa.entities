@@ -7,7 +7,7 @@ export type Food = {
   images: string[];
 };
 
-export type CreateFoodEntityDeps = {
+export type FoodEntityCreatorDeps = {
   validate: (ingredients: Food) => void | never;
   generateSlug: (string: string) => string;
 };
