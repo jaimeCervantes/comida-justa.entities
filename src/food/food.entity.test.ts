@@ -1,12 +1,14 @@
-import { test, describe, beforeEach } from "node:test";
+import { test, describe, beforeEach } from "vitest";
+
 import assert from "node:assert/strict";
-import { createFoodEntity, validate, generateSlug } from "./index.js";
-import { ingredients as dummyIngredients } from "./dummies/ingredients.js";
+import { createFoodEntity, validate, generateSlug } from "./index.ts";
+import { ingredients as dummyIngredients } from "./dummies/ingredients.ts";
+import type { Food, FoodEntity } from "./types/index.ts";
 
 describe(`When user needs to create a food entity with its local dependencies
 and provide correct data`, () => {
-  let makeFood = null;
-  let ingredients = null;
+  let makeFood: (ingredients: Food) => FoodEntity;
+  let ingredients: Food;
   beforeEach(() => {
     ingredients = dummyIngredients;
     makeFood = createFoodEntity({ validate, generateSlug });
@@ -19,7 +21,7 @@ and provide correct data`, () => {
   });
 
   test("Then createFoodEntity should generate a slug using local generateSlug dependency", () => {
-    const food = makeFood(ingredients);
+    const food: FoodEntity = makeFood(ingredients);
 
     assert.equal(
       food.getSlug(),
@@ -29,7 +31,7 @@ and provide correct data`, () => {
 
   test("Then createFoodEntity should generate all details needed for a healthy food", () => {
     const makeFood = createFoodEntity({ validate, generateSlug });
-    const food = makeFood(ingredients);
+    const food: FoodEntity = makeFood(ingredients);
 
     assert.deepEqual(food.getDetails(), {
       ...ingredients,
@@ -39,7 +41,7 @@ and provide correct data`, () => {
 
   test("Then invoking genereSlug method should generate a slug ", () => {
     const makeFood = createFoodEntity({ validate, generateSlug });
-    const food = makeFood(ingredients);
+    const food: FoodEntity = makeFood(ingredients);
     const slug = food.generateSlug(ingredients.title);
 
     assert.equal(
@@ -50,7 +52,7 @@ and provide correct data`, () => {
 
   test("Then invoking setSlug method should set new slug ", () => {
     const makeFood = createFoodEntity({ validate, generateSlug });
-    const food = makeFood(ingredients);
+    const food: FoodEntity = makeFood(ingredients);
     const newSlug = "crema-de-avellanas";
     food.setSlug(newSlug);
 

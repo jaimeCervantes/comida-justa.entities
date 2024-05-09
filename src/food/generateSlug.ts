@@ -1,4 +1,4 @@
-export function generateSlug(title, locale = "es-MX") {
+export function generateSlug(title: string, locale: string = "es-MX"): string {
   const slug = title
     .toLocaleLowerCase(locale)
     .normalize("NFD") // Normal Form Decomposition, convierte un character en dos o más, por ejemplo, su forma base y su acento

@@ -1,12 +1,13 @@
-import { test, describe } from "node:test";
+import { test, describe } from "vitest";
+
 import assert from "node:assert/strict";
-import { validate } from "./validate.js";
+import { validate } from "./validate.ts";
 import {
   ingredientsToValidate as dummyIngredientsToValidate,
   ingredientsNotValidate as dummyIngredientsNotValidate,
   ingredientsToValidate,
-} from "./dummies/ingredients.js";
-import { MIN_LENGTH_TITLE } from "./const/index.js";
+} from "./dummies/ingredients.ts";
+import { MIN_LENGTH_TITLE } from "./const/index.ts";
 
 describe("When Validating food", () => {
   test("Then correct food details should NOT throws an error", () => {

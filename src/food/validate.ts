@@ -3,9 +3,10 @@ import {
   MIN_LENGTH_SUMMARY,
   MIN_LENGTH_CONTENT,
   imgRegex,
-} from "./const/index.js";
+} from "./const/index.ts";
+import type { Food, VoidOrError } from "./types/index.ts";
 
-export function validate(food) {
+export function validate(food: Food): VoidOrError {
   validateStringOnFood(food.title, "title", MIN_LENGTH_TITLE);
   validateStringOnFood(food.summary, "summary", MIN_LENGTH_SUMMARY);
   validateStringOnFood(food.content, "content", MIN_LENGTH_CONTENT);
@@ -13,7 +14,11 @@ export function validate(food) {
   validateImages(food.images);
 }
 
-function validateStringOnFood(value, name, minLength) {
+function validateStringOnFood(
+  value: string,
+  name: string,
+  minLength: number
+): VoidOrError {
   if (!value) {
     throw new StringOnFoodError(value, `Missing ${name} prop on food entity.`);
   }
@@ -33,13 +38,13 @@ function validateStringOnFood(value, name, minLength) {
   }
 }
 
-function validateNumberOnFood(value, name) {
+function validateNumberOnFood(value: number, name: string): VoidOrError {
   if (typeof value !== "number") {
     throw new Error(`${name} must be a number.`);
   }
 }
 
-export function validateImages(images) {
+export function validateImages(images: string[]) {
   if (Array.isArray(images)) {
     for (const img of images) {
       validateSingleImage(img);
@@ -52,7 +57,7 @@ export function validateImages(images) {
   }
 }
 
-function validateSingleImage(image) {
+function validateSingleImage(image: string) {
   if (typeof image !== "string") {
     throw new ImageOnFoodError(image, "Each image url must be a string.");
   }
@@ -66,7 +71,8 @@ function validateSingleImage(image) {
 }
 
 class ImageOnFoodError extends Error {
-  constructor(value, message) {
+  image: string;
+  constructor(value: string, message: string) {
     super(message);
     this.name = "ImageOnFoodEntityError";
     this.image = value;
@@ -75,9 +81,11 @@ class ImageOnFoodError extends Error {
 }
 
 class StringOnFoodError extends Error {
-  constructor(value, message) {
+  value: string;
+  constructor(value: string, message: string) {
     super(message);
     this.value = value;
-    (this.name = "StringOnFoodEntityError"), (this.message = message);
+    this.name = "StringOnFoodEntityError";
+    this.message = message;
   }
 }

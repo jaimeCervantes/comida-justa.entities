@@ -1,5 +1,6 @@
-import { generateSlug } from "./generateSlug.js";
-import { describe, test } from "node:test";
+import { test, describe } from "vitest";
+
+import { generateSlug } from "./generateSlug.ts";
 import assert from "node:assert/strict";
 
 describe("Generate Slug base of the title of the healthy food", () => {
