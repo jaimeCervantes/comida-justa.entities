@@ -1,4 +1,4 @@
-import { test, describe, beforeEach } from "vitest";
+import { test, describe, beforeEach, expect } from "vitest";
 
 import assert from "node:assert/strict";
 import { validate, generateSlug, FoodEntityCreator } from "./index.ts";
@@ -17,14 +17,13 @@ and provide correct data`, () => {
   test("Then createFoodEntity should retun a createFood function", () => {
     const foodCreator = new FoodEntityCreator({ validate, generateSlug });
 
-    assert.equal(typeof foodCreator.makeFood, "function");
+    expect(typeof foodCreator.makeFood).toBe("function");
   });
 
   test("Then createFoodEntity should generate a slug using local generateSlug dependency", () => {
     const food: FoodEntity = foodCreator.makeFood(ingredients);
 
-    assert.equal(
-      food.getSlug(),
+    expect(food.getSlug()).toBe(
       "crema-de-cacahuate-natural-sin-sal-sin-azucar-y-sin-conservadores"
     );
   });
@@ -33,7 +32,7 @@ and provide correct data`, () => {
     const foodCreator = new FoodEntityCreator({ validate, generateSlug });
     const food: FoodEntity = foodCreator.makeFood(ingredients);
 
-    assert.deepEqual(food.getDetails(), {
+    expect(food.getDetails()).toEqual({
       ...ingredients,
       slug: food.getSlug(),
     });
@@ -44,8 +43,7 @@ and provide correct data`, () => {
     const food: FoodEntity = foodCreator.makeFood(ingredients);
     const slug = food.generateSlug(ingredients.title);
 
-    assert.equal(
-      slug,
+    expect(slug).toBe(
       "crema-de-cacahuate-natural-sin-sal-sin-azucar-y-sin-conservadores"
     );
   });
@@ -56,6 +54,6 @@ and provide correct data`, () => {
     const newSlug = "crema-de-avellanas";
     food.setSlug(newSlug);
 
-    assert.equal(food.getSlug(), newSlug);
+    expect(food.getSlug()).toBe(newSlug);
   });
 });
